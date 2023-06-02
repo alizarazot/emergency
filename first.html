@@ -50,8 +50,9 @@
             };
 
             let n = parseInt(elem.input.value);
+            let fib = fibonacci(n);
 
-            elem.fibonacci.innerText = fibonacci(n).join(", ");
+            elem.fibonacci.innerText = fib.join(", ");
             elem.par.innerText = par(n).join(", ");
             elem.impar.innerText = impar(n).join(", ");
         })
@@ -106,35 +107,7 @@
             return arr;
         }
 
-        function par(end) {
-            let pares = [];
-            let par = 2;
 
-            for (let i = 0; i < end; i++) {
-                if (par%2 == 0) {
-                    pares.push(par);
-                }
-                
-                par++;
-            }
-
-            return pares;
-        }
-
-        function impar(end) {
-            let impares = [];
-            let impar = 1;
-
-            for (let i = 0; i < end; i++) {
-                if (impar%2 != 0) {
-                    impares.push(impar);
-                }
-                
-                impar++;
-            }
-
-            return impares;
-        }
     </script>
 </body>
 </html>
