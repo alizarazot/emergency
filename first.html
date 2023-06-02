@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primer Ejercicio</title>
+
+    <style>
+        input {
+            outline: none;
+        }
+
+        .invalid {
+            border: red solid 3px;
+        }
+
+        span {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <input id="input" type="text" placeholder="Ingrese un número.">
+    <button id="btn">Calcular</button>
+
+    <div>
+        <span id="fibonacci"></span>
+        <span id="par"></span>
+        <span id="impar"></span>
+    </div>
+
+    <script>
+        let elem = {};
+
+        elem.input = document.querySelector("#input");
+        elem.btn = document.querySelector("#btn");
+
+        elem.fibonacci = document.querySelector("#fibonacci");
+        elem.par = document.querySelector("#par");
+        elem.impar = document.querySelector("#impar");
+
+        elem.btn.addEventListener("click", e => {
+            // Eliminar resaltado anterior si ya existía.
+            elem.input.classList.remove("invalid")
+
+            if (!validate()) {
+                resaltar();
+                return;
+            };
+
+            let n = parseInt(elem.input.value);
+
+            elem.fibonacci.innerText = fibonacci(n).join(", ");
+            elem.par.innerText = par(n).join(", ");
+            elem.impar.innerText = impar(n).join(", ");
+        })
+
+        function validate() {
+            let v = elem.input.value;
+            let n = parseInt(elem.input.value);
+
+            if (isNaN(n)) {
+                window.alert("Se necesita un número.");
+                return false;
+            }
+
+            if (n === 0) {
+                window.alert("No se permite el cero.")
+                return false;
+            }
+
+            if (n < 0) {
+                window.alert("El número debe ser positivo.")
+                return false;
+            }
+
+            if (v.includes(" ")) {
+                window.alert("No se permiten espacios.")
+                return false;
+            }
+
+            return true;
+        }
+
+        function resaltar() {
+            elem.input.classList.add("invalid");
+            elem.input.focus();
+        }
+
+        function fibonacci(end) {
+            let a = 1;
+            let b = 0;
+            let c = 0;
+
+            let arr = [];
+
+            while (arr.length < end) {
+                arr.push(c);
+
+                c = a + b;
+                a = b;
+                b = c;
+            }
+
+            return arr;
+        }
+
+        function par(end) {
+            let pares = [];
+            let par = 2;
+
+            for (let i = 0; i < end; i++) {
+                if (par%2 == 0) {
+                    pares.push(par);
+                }
+                
+                par++;
+            }
+
+            return pares;
+        }
+
+        function impar(end) {
+            let impares = [];
+            let impar = 1;
+
+            for (let i = 0; i < end; i++) {
+                if (impar%2 != 0) {
+                    impares.push(impar);
+                }
+                
+                impar++;
+            }
+
+            return impares;
+        }
+    </script>
+</body>
+</html>
